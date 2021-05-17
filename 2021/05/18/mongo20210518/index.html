@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>MongoDB学习（2） - 小楼叙谈</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="MongoDB学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB学习（2）">
+<meta property="og:url" content="http://czj2369.github.io/2021/05/18/mongo20210518/index.html">
+<meta property="og:site_name" content="小楼叙谈">
+<meta property="og:description" content="MongoDB学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_140549.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_143157.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_143949.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_145019.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_145512.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_145700.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_145926.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_150003.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_150136.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_155034.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_155213.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_155325.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_155719.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-17_201824.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-17_201948.png">
+<meta property="article:published_time" content="2021-05-17T16:39:43.000Z">
+<meta property="article:modified_time" content="2021-05-17T16:41:57.049Z">
+<meta property="article:author" content="czj">
+<meta property="article:tag" content="MongoDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://czj2369.github.io/2021/05/18/mongo20210518/2021-05-15_140549.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+  <link rel="stylesheet" href="/css/style.css?v=1621269737980">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1621269737980">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1621269737980">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="czj" class="mdui-btn mdui-btn-icon"><img src="https://avatars.githubusercontent.com/u/31198074?s=400&amp;u=50e804a07014c2f78db9e9cadec51d5608cc6527&amp;v=4" alt="czj"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="czj">
+            <img src="https://avatars.githubusercontent.com/u/31198074?s=400&amp;u=50e804a07014c2f78db9e9cadec51d5608cc6527&amp;v=4" alt="czj" alt="czj">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>6</div>
+        <div><span>标签</span>6</div>
+        <div><span>分类</span>4</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:czj2369.github.io" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="/null" target="_blank" mdui-tooltip="{content: 'QQ群'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://www.bilibili.com/" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/czj2369/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/MongoDB/">MongoDB</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/docker/">docker</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/docker/redis/">redis</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/xshell/">xshell</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/xshell/" style="font-size: 10px;">xshell</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" style="font-size: 10px;">访问速度</a>
+    </div>
+    
+  </div>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 czj
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+
+  <article>
+    
+        <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+            <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="MongoDB学习（2）" class="lazyload">
+            <h1>MongoDB学习（2）</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta nexmoe-rainbow-fill" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年05月18日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.7k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 14 分钟</a>
+</div>
+
+    
+
+    <p>MongoDB学习</p>
+<span id="more"></span>
+
+<h1 id="1-如何安装MongoDB"><a href="#1-如何安装MongoDB" class="headerlink" title="1.如何安装MongoDB"></a>1.如何安装MongoDB</h1><p>MongoDB提供了可用于32位和64位系统的预编译二进制包，你可以从MongoDB官网下载安装，MongoDB预编译二进制包下载地址：<a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/enterprise">https://www.mongodb.com/try/download/enterprise</a></p>
+<p>根据你的系统平台下载文件，根据平台不同进行安装即可。</p>
+<p><img src="2021-05-15_140549.png"></p>
+<p>使用docker安装mongoDB</p>
+<pre><code>#拉取mongo4.0.3镜像
+docker pull mongo:4.0.3
+
+#创建名字为mongodb的容器，容器端口27017映射主机端口27017，容器存储路径/data/db映射主机存储路径/data/mongodb
+docker create --name mongodb -p 27017:27017 -v /data/mongodb:/data/db mongo:4.0.3
+
+#启动容器
+docker start mongodb
+
+#进入容器
+docker exec -it mongodb /bin/bash
+
+#使用MongoDB客户端进行操作
+mongo
+
+show dbs  #查询所有的数据库
+</code></pre>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="2021-05-15_143157.png" alt="2021-05-15_143157" class="lazyload"></p>
+<h1 id="2-Mongo基本操作"><a href="#2-Mongo基本操作" class="headerlink" title="2.Mongo基本操作"></a>2.Mongo基本操作</h1><h2 id="2-1-数据库以及表的操作"><a href="#2-1-数据库以及表的操作" class="headerlink" title="2.1.数据库以及表的操作"></a>2.1.数据库以及表的操作</h2><h3 id="2-1-1-查看所有数据库"><a href="#2-1-1-查看所有数据库" class="headerlink" title="2.1.1.查看所有数据库"></a>2.1.1.查看所有数据库</h3><p><code>show dbs</code></p>
+<h3 id="2-1-2-通过use来切换数据库"><a href="#2-1-2-通过use来切换数据库" class="headerlink" title="2.1.2.通过use来切换数据库"></a>2.1.2.通过use来切换数据库</h3><p><code>use testdemo</code></p>
+<h3 id="2-1-3-创建数据库"><a href="#2-1-3-创建数据库" class="headerlink" title="2.1.3.创建数据库"></a>2.1.3.创建数据库</h3><blockquote>
+<p>在MongoDB中，数据库是自动创建的，通过use切换到新数据库中，进行插入数据即可自动创建数据库</p>
+</blockquote>
+<p><code>db.user.insert(&#123;&quot;name&quot;:&quot;zhangsan&quot;,&quot;age&quot;:20&#39;&#125;)</code></p>
+<p><img src="2021-05-15_143949.png"></p>
+<h3 id="2-1-4-查看表"><a href="#2-1-4-查看表" class="headerlink" title="2.1.4.查看表"></a>2.1.4.查看表</h3><p><code>show tables</code></p>
+<h3 id="2-1-5-删除表"><a href="#2-1-5-删除表" class="headerlink" title="2.1.5.删除表"></a>2.1.5.删除表</h3><p><code>db.demo.drop()</code></p>
+<p>如果成功删除选定集合，则 drop() 方法返回 true，否则返回 false。</p>
+<h3 id="2-1-6删除数据库"><a href="#2-1-6删除数据库" class="headerlink" title="2.1.6删除数据库"></a>2.1.6删除数据库</h3><p><code>use demo</code> #先切换到要删除的数据库</p>
+<p><code>db.dropDatabase()</code> #删除数据库</p>
+<h3 id="2-1-7新增数据"><a href="#2-1-7新增数据" class="headerlink" title="2.1.7新增数据"></a>2.1.7新增数据</h3><blockquote>
+<p>语法：db.COLLECTION_NAME.insert(document)</p>
+</blockquote>
+<p>document文档存储的结构类似于JSON结构的一种结构，BSON（Binary JSON）</p>
+<p><img src="2021-05-15_145019.png"></p>
+<h3 id="2-1-8更新数据"><a href="#2-1-8更新数据" class="headerlink" title="2.1.8更新数据"></a>2.1.8更新数据</h3><blockquote>
+<p>语法：</p>
+<p>db.collection.update(<br>    <query>,<br>    <update>,<br>     [<br>         upsert: <boolean>,<br>         multi: <boolean>,<br>         writeConcern: <document><br>     ]<br>)</p>
+<p>参数说明：</p>
+<p>query : update的查询条件，类似sql update查询内where后面的。<br>update : update的对象和一些更新的操作符（如 inc…）等，也可以理解为sql update查询内set后面的<br>upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是<br>false，不插入。<br>multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条<br>记录全部更新。<br>writeConcern :可选，抛出异常的级别。</p>
+</blockquote>
+<p><img src="2021-05-15_145512.png"></p>
+<p>不带更新的操作符会删除掉其他不更新的字段</p>
+<p><img src="2021-05-15_145700.png"></p>
+<p>更新不存在的字段时，会添加该字段</p>
+<p><img src="2021-05-15_145926.png"></p>
+<p>更新不存在的数据时，默认是不插入数据的</p>
+<p><img src="2021-05-15_150003.png"></p>
+<p>如果设置第一个参数upsert为true，则会新增数据</p>
+<p><img src="2021-05-15_150136.png"></p>
+<h3 id="2-1-9删除数据"><a href="#2-1-9删除数据" class="headerlink" title="2.1.9删除数据"></a>2.1.9删除数据</h3><blockquote>
+<p>语法：</p>
+<p>db.collection.remove(<br><query>,<br>{<br>justOne: <boolean>,<br>writeConcern: <document><br>}<br>)</p>
+<p>参数说明：</p>
+<p>query :（可选）删除的文档的条件。<br>justOne : （可选）如果设为 true 或 1，则只删除一个文档，如果不设置该参数，或使用默认值 false，则删<br>除所有匹配条件的文档。<br>writeConcern :（可选）抛出异常的级别</p>
+</blockquote>
+<p><img src="2021-05-15_155034.png"></p>
+<p><img src="2021-05-15_155213.png"></p>
+<p>删除所有数据</p>
+<p><img src="2021-05-15_155325.png"></p>
+<blockquote>
+<p>#说明：为了简化操作，官方推荐使用deleteOne()与deleteMany()进行删除数据操作。<br>db.user.deleteOne({id:1}) #删除一条数据<br>db.user.deleteMany({})  #删除所有数据</p>
+</blockquote>
+<h3 id="2-1-10查询数据"><a href="#2-1-10查询数据" class="headerlink" title="2.1.10查询数据"></a>2.1.10查询数据</h3><blockquote>
+<p>语法：</p>
+<p>db.user.find([query],[fields])</p>
+<p>参数说明：</p>
+<p>query ：可选，使用查询操作符指定查询条件<br>fields ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省<br>略）。</p>
+</blockquote>
+<p>如果你需要以易读的方式来读取数据，可以使用 pretty() 方法</p>
+<p><img src="2021-05-15_155719.png"></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>格式</th>
+<th>范例</th>
+<th>RDBMS中的类似语句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>等于</td>
+<td>{<key>:<value>}</td>
+<td>db.user.find({age:22}).pretty()</td>
+<td>where age = 22</td>
+</tr>
+<tr>
+<td>小于</td>
+<td>{<key>:{$lt:<value>}}</td>
+<td>db.user.find({age:{$lt:21}})</td>
+<td>where age &lt; 21</td>
+</tr>
+<tr>
+<td>小于等于</td>
+<td>{<key>:{$lte:<value>}}</td>
+<td>db.user.find({age:{$lte:21}})</td>
+<td>where age &lt;= 21</td>
+</tr>
+<tr>
+<td>大于</td>
+<td>{<key>:{$gt:<value>}}</td>
+<td>db.user.find({age:{$gt:21}})</td>
+<td>where age &gt; 21</td>
+</tr>
+<tr>
+<td>大于等于</td>
+<td>{<key>:{$gte:<value>}}</td>
+<td>db.user.find({age:{$gte:21}})</td>
+<td>where age &gt;= 21</td>
+</tr>
+<tr>
+<td>不等于</td>
+<td>{<key>:{$ne:<value>}}</td>
+<td>db.user.find({age:{$ne:21}})</td>
+<td>where age != 21</td>
+</tr>
+</tbody></table>
+<h2 id="2-2索引"><a href="#2-2索引" class="headerlink" title="2.2索引"></a>2.2索引</h2><p>索引通常能够极大的提高查询的效率，如果没有索引，MongoDB在读取数据时必须扫描集合中的每个文件并选取<br>那些符合查询条件的记录。<br>这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站<br>的性能是非常致命的。<br>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排<br>序的一种结构</p>
+<h3 id="2-2-1查看索引"><a href="#2-2-1查看索引" class="headerlink" title="2.2.1查看索引"></a>2.2.1查看索引</h3><pre><code>&gt; db.user.getIndexes()
+[
+    &#123;
+        &quot;v&quot; : 2,
+        &quot;key&quot; : &#123;
+            &quot;_id&quot; : 1
+        &#125;,
+        &quot;name&quot; : &quot;_id_&quot;,
+        &quot;ns&quot; : &quot;user.user&quot;
+    &#125;
+]
+
+#说明：1表示升序创建索引，-1表示降序创建索引。
+</code></pre>
+<p>查看索引大小，单位：字节<br><code>db.user.totalIndexSize()</code></p>
+<h3 id="2-2-2创建索引"><a href="#2-2-2创建索引" class="headerlink" title="2.2.2创建索引"></a>2.2.2创建索引</h3><p><img src="2021-05-17_201824.png"></p>
+<p><img src="2021-05-17_201948.png"></p>
+<p>创建联合索引</p>
+<p><code>db.user.createIndex(&#123;&#39;age&#39;:1, &#39;id&#39;:-1&#125;)</code></p>
+<h3 id="2-2-3删除索引"><a href="#2-2-3删除索引" class="headerlink" title="2.2.3删除索引"></a>2.2.3删除索引</h3><p><code>db.user.dropIndex(&quot;age_1&quot;)</code></p>
+<p>或者删除除了_id的索引</p>
+<p><code>db.user.dropIndexes()</code></p>
+<h2 id="2-3执行计划"><a href="#2-3执行计划" class="headerlink" title="2.3执行计划"></a>2.3执行计划</h2><p>MongoDB 查询分析可以确保我们建议的索引是否有效，是查询语句性能分析的重要工具。</p>
+<pre><code>#查看执行计划
+
+&gt; db.testIndex.find(&#123;age:&#123;$gt:100&#125;,id:&#123;$lt:200&#125;&#125;).explain()
+&#123;
+    &quot;queryPlanner&quot; : &#123;
+        &quot;plannerVersion&quot; : 1,
+        &quot;namespace&quot; : &quot;testIndex.testIndex&quot;,
+        &quot;indexFilterSet&quot; : false,
+        &quot;parsedQuery&quot; : &#123;
+            &quot;$and&quot; : [
+                &#123;
+                    &quot;id&quot; : &#123;
+                        &quot;$lt&quot; : 200
+                    &#125;
+                &#125;,
+                &#123;
+                    &quot;age&quot; : &#123;
+                        &quot;$gt&quot; : 100
+                    &#125;
+                &#125;
+            ]
+        &#125;,
+        &quot;winningPlan&quot; : &#123;     #最佳执行计划
+            &quot;stage&quot; : &quot;FETCH&quot;,  #查询方式，常见的有COLLSCAN/全表扫描、IXSCAN/索引扫描、FETCH/根据索引去检索文档、SHARD_MERGE/合并分片结果、IDHACK/针对_id进行查询
+            &quot;filter&quot; : &#123;
+                &quot;id&quot; : &#123;
+                    &quot;$lt&quot; : 200
+                &#125;
+            &#125;,
+            &quot;inputStage&quot; : &#123;
+                &quot;stage&quot; : &quot;IXSCAN&quot;,
+                &quot;keyPattern&quot; : &#123;
+                    &quot;age&quot; : 1,
+                    &quot;username&quot; : -1
+                &#125;,
+                &quot;indexName&quot; : &quot;age_1_username_-1&quot;,
+                &quot;isMultiKey&quot; : false,
+                &quot;multiKeyPaths&quot; : &#123;
+                    &quot;age&quot; : [ ],
+                    &quot;username&quot; : [ ]
+                &#125;,
+                &quot;isUnique&quot; : false,
+                &quot;isSparse&quot; : false,
+                &quot;isPartial&quot; : false,
+                &quot;indexVersion&quot; : 2,
+                &quot;direction&quot; : &quot;forward&quot;,
+                &quot;indexBounds&quot; : &#123;
+                    &quot;age&quot; : [
+                        &quot;(100.0, inf.0]&quot;
+                    ],
+                    &quot;username&quot; : [
+                        &quot;[MaxKey, MinKey]&quot;
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        &quot;rejectedPlans&quot; : [ ]
+    &#125;,
+    &quot;serverInfo&quot; : &#123;
+        &quot;host&quot; : &quot;9e840090d799&quot;,
+        &quot;port&quot; : 27017,
+        &quot;version&quot; : &quot;4.0.3&quot;,
+        &quot;gitVersion&quot; : &quot;7ea530946fa7880364d88c8d8b6026bbc9ffa48c&quot;
+    &#125;,
+    &quot;ok&quot; : 1
+&#125;
+</code></pre>
+<h1 id="3-通过JavaApi操作MongoDB"><a href="#3-通过JavaApi操作MongoDB" class="headerlink" title="3.通过JavaApi操作MongoDB"></a>3.通过JavaApi操作MongoDB</h1><h2 id="3-1编写CRUD操作"><a href="#3-1编写CRUD操作" class="headerlink" title="3.1编写CRUD操作"></a>3.1编写CRUD操作</h2><p>demo中演示了，如何连接到MongoDB，如何选择数据库、表，进行查询的操作。</p>
+<p>引入驱动</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongodb-driver-sync&lt;/artifactId&gt;
+    &lt;version&gt;3.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="java">@Slf4j
+public class TestCRUD &#123;
+
+    private MongoCollection&lt;Document&gt; user;
+
+    /**
+     * 初始化user集合
+     */
+    @Before
+    public void init()&#123;
+        // 创建一个客户端-建立连接
+        MongoClient mongoClient = MongoClients.create(&quot;mongodb://192.168.111.128:27017&quot;);
+        // 选择数据库
+        MongoDatabase tabletest = mongoClient.getDatabase(&quot;tabletest&quot;);
+        // 选择集合（表）
+        user = tabletest.getCollection(&quot;user&quot;);
+    &#125;
+
+    @Test
+    public void testFind()&#123;
+        user.find(
+                // age &gt; 50 &amp;&amp; age &lt; 100
+                and(
+                        lte(&quot;age&quot;, 100),
+                        gte(&quot;age&quot;, 50)
+                )
+        )
+                // 按 id 降序
+                .sort(Sorts.descending(&quot;id&quot;))
+                // 过滤
+                .projection(
+                        Projections.fields(
+                                // 仅输出 id和age 字段
+                                Projections.include(&quot;id&quot;, &quot;age&quot;),
+                                // 不输出 _id
+                                Projections.excludeId()
+                        )
+                )
+                // 循环每一行
+                .forEach((Consumer&lt;? super Document&gt;) item-&gt;&#123;
+                    System.out.println(item);
+                &#125;);
+    &#125;
+
+    @Test
+    public void testInsert() &#123;
+        // 插入对象
+        Document document = new Document(&quot;id&quot;, &quot;10001&quot;)
+                .append(&quot;age&quot;, 100)
+                .append(&quot;name&quot;, &quot;10001号人&quot;)
+                .append(&quot;email&quot;, &quot;789@qq.com&quot;);
+        // 插入数据
+        user.insertOne(document);
+        log.info(&quot;插入成功&quot;);
+        // 验证
+        user.find(eq(&quot;name&quot;, &quot;10001号人&quot;)).forEach((Consumer&lt;? super Document&gt;) item-&gt;&#123;
+            log.info(item.toJson());
+        &#125;);
+    &#125;
+
+    @Test
+    public void testUpdate() &#123;
+        // 更新
+        UpdateResult updateResult = user.updateOne(eq(&quot;id&quot;, &quot;10001&quot;), Updates.set(&quot;age&quot;, 200));
+        log.info(String.valueOf(updateResult));
+
+        // 验证
+        user.find(eq(&quot;name&quot;, &quot;10001号人&quot;)).forEach((Consumer&lt;? super Document&gt;) item-&gt;&#123;
+            log.info(item.toJson());
+        &#125;);
+    &#125;
+
+    @Test
+    public void testDelete() &#123;
+        // 删除
+        DeleteResult id = user.deleteOne(eq(&quot;id&quot;, &quot;10001&quot;));
+        log.info(String.valueOf(id));
+    &#125;
+&#125;
+</code></pre>
+<h2 id="3-2面向对象操作"><a href="#3-2面向对象操作" class="headerlink" title="3.2面向对象操作"></a>3.2面向对象操作</h2><pre><code>@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User &#123;
+    private String id;
+    @Field(value = &quot;username&quot;)
+    private String name;
+    private Integer age;
+&#125;
+</code></pre>
+<pre><code class="java">public class TestObject &#123;
+    MongoCollection&lt;User&gt; userCollection;
+
+    @Before
+    public void init() &#123;
+        //定义对象的解码注册器
+        CodecRegistry pojoCodecRegistry = CodecRegistries.
+                fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+
+                        CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())
+                );
+        // 建立连接
+        MongoClient mongoClient =
+                MongoClients.create(&quot;mongodb://192.168.111.128:27017&quot;);
+        // 选择数据库 并且 注册解码器
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(&quot;tabletest1&quot;)
+                .withCodecRegistry(pojoCodecRegistry);
+        // 选择表
+        this.userCollection = mongoDatabase
+                .getCollection(&quot;user&quot;, User.class);
+    &#125;
+
+    @Test
+    public void testInsert() &#123;
+        for (int i = 0; i &lt; 100; i++) &#123;
+            User user = new User(&quot;id111_&quot; + i, &quot;name111_&quot; + i, i + 10);
+            userCollection.insertOne(user);
+        &#125;
+    &#125;
+
+    @Test
+    public void testQuery() &#123;
+        User user = new User();
+        user.setId(&quot;id_1&quot;);
+        userCollection.find(Filters.eq(&quot;username&quot;, &quot;name_1&quot;)).forEach((Consumer&lt;? super User&gt;) item -&gt; &#123;
+            System.out.println(item);
+        &#125;);
+    &#125;
+
+    @Test
+    public void testUpdate() &#123;
+        UpdateResult updateResult =
+                userCollection.updateMany(Filters.eq(&quot;username&quot;, &quot;name_1&quot;), Updates.set(&quot;age&quot;, 22));
+        System.out.println(updateResult);
+    &#125;
+
+    @Test
+    public void testDelete() &#123;
+        DeleteResult deleteResult =
+                this.userCollection.deleteOne(Filters.eq(&quot;name&quot;, &quot;张三&quot;));
+        System.out.println(deleteResult);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="3-3SpringBoot-整合-MongoDB"><a href="#3-3SpringBoot-整合-MongoDB" class="headerlink" title="3.3SpringBoot 整合 MongoDB"></a>3.3SpringBoot 整合 MongoDB</h2><h3 id="3-3-1引入依赖"><a href="#3-3-1引入依赖" class="headerlink" title="3.3.1引入依赖"></a>3.3.1引入依赖</h3><pre><code class="xml">&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+  &lt;version&gt;2.1.0.RELEASE&lt;/version&gt;
+&lt;/parent&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-data-mongodb&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="3-3-2编写applicaition-properties文件"><a href="#3-3-2编写applicaition-properties文件" class="headerlink" title="3.3.2编写applicaition.properties文件"></a>3.3.2编写applicaition.properties文件</h3><pre><code class="properties">spring.data.mongodb.uri=mongodb://192.168.111.128:27017/tabletest1
+</code></pre>
+<h3 id="3-3-3编写Dao层"><a href="#3-3-3编写Dao层" class="headerlink" title="3.3.3编写Dao层"></a>3.3.3编写Dao层</h3><pre><code class="java">@Repository
+public class UserMongoDao &#123;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    /**
+     * 插入
+     * @param user
+     */
+    public void save(User user) &#123;
+        mongoTemplate.save(user);
+    &#125;
+
+    /**
+     * 通过名称查询
+     * @param name
+     * @return
+     */
+    public List&lt;User&gt; queryUserListByName(String name) &#123;
+        Query query = Query.query(Criteria.where(&quot;name&quot;).is(name));
+        List&lt;User&gt; users = mongoTemplate.find(query, User.class);
+        return users;
+    &#125;
+
+    /**
+     * 分页查询
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    public List&lt;User&gt; queryUserList(int pageSize, int pageNum)&#123;
+        Query query = new Query().limit(pageSize).skip((pageNum - 1) * pageSize);
+        List&lt;User&gt; users = mongoTemplate.find(query, User.class);
+        return users;
+    &#125;
+
+    /**
+     * 更新
+     * @param user
+     * @return
+     */
+    public UpdateResult updateUser(User user) &#123;
+        Query id = Query.query(Criteria.where(&quot;id&quot;).is(user.getId()));
+        Update age = Update.update(&quot;age&quot;, user.getAge());
+        UpdateResult updateResult = mongoTemplate.updateFirst(id, age, User.class);
+        return updateResult;
+    &#125;
+
+    /**
+     * 删除
+     * @param user
+     * @return
+     */
+    public DeleteResult deleteUser(User user)&#123;
+        Query query = Query.query(Criteria.where(&quot;id&quot;).is(user.getId()));
+        DeleteResult remove = mongoTemplate.remove(query, User.class);
+        return remove;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="3-3-4编写启动类"><a href="#3-3-4编写启动类" class="headerlink" title="3.3.4编写启动类"></a>3.3.4编写启动类</h3><pre><code class="java">@SpringBootApplication
+public class MongoApplication &#123;
+  public static void main(String[] args) &#123;
+    SpringApplication.run(MongoApplication.class, args);
+ &#125;
+&#125;
+</code></pre>
+<h3 id="3-3-5编写单元测试"><a href="#3-3-5编写单元测试" class="headerlink" title="3.3.5编写单元测试"></a>3.3.5编写单元测试</h3><pre><code class="java">@SpringBootTest
+@RunWith(SpringRunner.class)
+public class TestDemo &#123;
+
+    @Autowired
+    private UserMongoDao userMongoDao;
+
+    @Test
+    public void testSave()&#123;
+        for (int i = 0; i &lt; 100; i++) &#123;
+            User user = new User(&quot;id_&quot; + i, &quot;name_&quot; + i, i + 10);
+            userMongoDao.save(user);
+        &#125;
+    &#125;
+
+    @Test
+    public void testFind()&#123;
+        userMongoDao.queryUserListByName(&quot;name_1&quot;).forEach(item-&gt;&#123;
+            System.out.println(item);
+        &#125;);
+    &#125;
+
+    @Test
+    public void testFindPage()&#123;
+        userMongoDao.queryUserList(2, 5).forEach(item-&gt;&#123;
+            System.out.println(item);
+        &#125;);
+    &#125;
+
+    @Test
+    public void testInsert() &#123;
+        User user = User.builder().username(&quot;hahah&quot;).id(&quot;777&quot;).age(100).build();
+        userMongoDao.save(user);
+
+        userMongoDao.queryUserListByName(&quot;hahah&quot;).forEach(item-&gt;&#123;
+            System.out.println(item);
+        &#125;);
+    &#125;
+
+    @Test
+    public void testDelete() &#123;
+        User user = User.builder().id(&quot;777&quot;).build();
+        userMongoDao.deleteUser(user);
+        userMongoDao.queryUserListByName(&quot;hahah&quot;).forEach(item-&gt;&#123;
+            System.out.println(item);
+        &#125;);
+    &#125;
+&#125;
+</code></pre>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>czj<br>
+    <strong>本文链接：</strong><a href="http://czj2369.github.io/2021/05/18/mongo20210518/" title="http:&#x2F;&#x2F;czj2369.github.io&#x2F;2021&#x2F;05&#x2F;18&#x2F;mongo20210518&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;czj2369.github.io&#x2F;2021&#x2F;05&#x2F;18&#x2F;mongo20210518&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/MongoDB/">MongoDB</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/MongoDB/" rel="tag">MongoDB</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '6ae9a61017d0fa708309',
+        clientSecret: '0bf1d3f0275d2935eb6ac74552af6086536b20e8',
+        id: window.location.pathname,
+        repo: 'czj2369.github.io',
+        owner: 'czj2369',
+        admin: 'czj2369'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+        <div class="nexmoe-post-right">
+          <div class="nexmoe-fixed">
+            <div class="nexmoe-tool"> 
+              <button class="mdui-fab catalog mdui-ripple" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                
+      
+                  <div class="nexmoe-toc">
+                      
+                      
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85MongoDB"><span class="toc-number">1.</span> <span class="toc-text">1.如何安装MongoDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Mongo%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">2.Mongo基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%A5%E5%8F%8A%E8%A1%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1.数据库以及表的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1.查看所有数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E9%80%9A%E8%BF%87use%E6%9D%A5%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2.通过use来切换数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3.创建数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4-%E6%9F%A5%E7%9C%8B%E8%A1%A8"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.1.4.查看表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-5-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-number">2.1.5.</span> <span class="toc-text">2.1.5.删除表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.6.</span> <span class="toc-text">2.1.6删除数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-7%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.7.</span> <span class="toc-text">2.1.7新增数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-8%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.8.</span> <span class="toc-text">2.1.8更新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-9%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.9.</span> <span class="toc-text">2.1.9删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-10%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.10.</span> <span class="toc-text">2.1.10查询数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E7%B4%A2%E5%BC%95"><span class="toc-number">2.2.</span> <span class="toc-text">2.2索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1%E6%9F%A5%E7%9C%8B%E7%B4%A2%E5%BC%95"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1查看索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3删除索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92"><span class="toc-number">2.3.</span> <span class="toc-text">2.3执行计划</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E9%80%9A%E8%BF%87JavaApi%E6%93%8D%E4%BD%9CMongoDB"><span class="toc-number">3.</span> <span class="toc-text">3.通过JavaApi操作MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E7%BC%96%E5%86%99CRUD%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.</span> <span class="toc-text">3.1编写CRUD操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">3.2面向对象操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3SpringBoot-%E6%95%B4%E5%90%88-MongoDB"><span class="toc-number">3.3.</span> <span class="toc-text">3.3SpringBoot 整合 MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2%E7%BC%96%E5%86%99applicaition-properties%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2编写applicaition.properties文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3%E7%BC%96%E5%86%99Dao%E5%B1%82"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3.3编写Dao层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-4%E7%BC%96%E5%86%99%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-number">3.3.4.</span> <span class="toc-text">3.3.4编写启动类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-5%E7%BC%96%E5%86%99%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">3.3.5.</span> <span class="toc-text">3.3.5编写单元测试</span></a></li></ol></li></ol></li></ol>
+                      
+                  </div>
+            
+                
+              </button>
+              <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+ 
+
+<script src="/js/app.js?v=1621269737988"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>

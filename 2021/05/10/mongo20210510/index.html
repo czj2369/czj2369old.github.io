@@ -19,19 +19,26 @@
 <meta property="og:site_name" content="小楼叙谈">
 <meta property="og:description" content="MongoDB学习">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/Figure-1-Mapping-Table-to-Collection-1.png">
-<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/sharding.png">
-<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/replication.png">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2013/10/Figure-1-Mapping-Table-to-Collection-1.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210517225513055.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210517225525943.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210517225620246.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210517225709463.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210518002808613.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210518003112184.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210518003307708.png">
+<meta property="og:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/image-20210518003320470.png">
 <meta property="article:published_time" content="2021-05-10T13:52:24.000Z">
-<meta property="article:modified_time" content="2021-05-10T15:00:47.967Z">
+<meta property="article:modified_time" content="2021-05-17T16:41:28.412Z">
 <meta property="article:author" content="czj">
+<meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://czj2369.github.io/2021/05/10/mongo20210510/Figure-1-Mapping-Table-to-Collection-1.png">
+<meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2013/10/Figure-1-Mapping-Table-to-Collection-1.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
-  <link rel="stylesheet" href="/css/style.css?v=1620658851875">
+  <link rel="stylesheet" href="/css/style.css?v=1621269737990">
   
-  <link rel="stylesheet" href="/css/style.css?v=1620658851875">
-  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1620658851875">
+  <link rel="stylesheet" href="/css/style.css?v=1621269737990">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1621269737990">
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -55,9 +62,9 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>4</div>
-        <div><span>标签</span>5</div>
-        <div><span>分类</span>3</div>
+        <div><span>文章</span>6</div>
+        <div><span>标签</span>6</div>
+        <div><span>分类</span>4</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -106,6 +113,13 @@
         
 
         <li class="category-list-item">
+          <a class="category-list-link" href="/categories/MongoDB/">MongoDB</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
           <a class="category-list-link" href="/categories/docker/">docker</a>
           <span class="category-list-count">2</span>
         </li>
@@ -135,7 +149,7 @@
   
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
-      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/xshell/" style="font-size: 10px;">xshell</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" style="font-size: 10px;">访问速度</a>
+      <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/xshell/" style="font-size: 10px;">xshell</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" style="font-size: 10px;">访问速度</a>
     </div>
     
   </div>
@@ -164,8 +178,8 @@
     
     <div class="nexmoe-post-meta nexmoe-rainbow-fill" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2021年05月10日</a>
-    <a><i class="nexmoefont icon-areachart"></i>2.2k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 9 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 18 分钟</a>
 </div>
 
     
@@ -231,11 +245,11 @@
 </tr>
 </tbody></table>
 <p>（通过与关系型数据库中的术语/概念去理解MongoDB中的术语与概念）</p>
-<h2 id="2-1数据库"><a href="#2-1数据库" class="headerlink" title="2.1数据库"></a>2.1数据库</h2><p>​            一个MongoDB中可以建立多个数据库。</p>
-<p>​            MongoDB的默认数据库为”db”，该数据库存储在data目录中。</p>
-<p>​            MongoDB的单个实例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。</p>
+<h2 id="2-1数据库"><a href="#2-1数据库" class="headerlink" title="2.1数据库"></a>2.1数据库</h2><p>一个MongoDB中可以建立多个数据库。</p>
+<p>MongoDB的默认数据库为”db”，该数据库存储在data目录中。</p>
+<p>MongoDB的单个实例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。</p>
 <h2 id="2-2文档结构"><a href="#2-2文档结构" class="headerlink" title="2.2文档结构"></a>2.2文档结构</h2><p>​            MongoDB将数据存储为文档（document）。数据结构由键值（key=&gt;value）组成，BSON格式。字段值value可以包含各种格式，包括但不限于其它文档、数组、文档数组等。</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="Figure-1-Mapping-Table-to-Collection-1.png" alt="img" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="http://www.runoob.com/wp-content/uploads/2013/10/Figure-1-Mapping-Table-to-Collection-1.png" alt="img" class="lazyload"></p>
 <blockquote>
 <p>BSON（/ˈbiːsən/）是一种计算机数据交换格式，主要被用作MongoDB数据库中的数据存储和网络传输格式。它是一种二进制表示形式，能用来表示简单数据结构、关联数组（MongoDB中称为“对象”或“文档”）以及MongoDB中的各种数据类型。BSON之名缘于JSON，含义为Binary JSON（二进制JSON）。（摘自百度百科）</p>
 </blockquote>
@@ -379,35 +393,124 @@
 <td align="left">正则表达式类型。用于存储正则表达式。</td>
 </tr>
 </tbody></table>
-<h1 id="3-MongoDB分片"><a href="#3-MongoDB分片" class="headerlink" title="3.MongoDB分片"></a>3.MongoDB分片</h1><p>​    在MongoDB中存在一种集群，可以满足MongoDB数据量大量增长的需求，用到的就是分片技术</p>
-<h2 id="3-1使用分片的原因"><a href="#3-1使用分片的原因" class="headerlink" title="3.1使用分片的原因"></a>3.1使用分片的原因</h2><ul>
-<li>复制所有的写入操作到主节点</li>
-<li>延迟的敏感数据会在主节点中查询</li>
-<li>单个副本集限制在12个节点</li>
-<li>当请求量过大时会出现内存不足</li>
-<li>本地磁盘不足</li>
-<li>垂直扩展价格昂贵</li>
-</ul>
-<h2 id="3-2分片的结构"><a href="#3-2分片的结构" class="headerlink" title="3.2分片的结构"></a>3.2分片的结构</h2><p><img src="sharding.png"></p>
-<p>图中一共有四个组件：</p>
-<p>①mongos（请求入口）</p>
-<p>数据集群请求的入口，所有的请求通过mongos进行协调，不需要再应用程序中添加分发器，mongos本身就是一个请求分发中心，负责把对应的请求数据分发到对应的schema服务器上，在生产环境中通常会使用配置多个mongos，使得不会因为一个mongos挂到而导致所有的请求阻塞。</p>
-<p>②Config Server（配置服务器）</p>
-<p>存储所有的元数据信息（路由、分片等）的配置。mongos本事是不存储路由信息和分片信息，只是缓存在内存中。当mongos第一次启动或者关机重启时，会先去Config Server中获取配置信息，再将信息缓存起来。如果Config Server中的配置发生变化，会通知所有的mongos更新自己的状态，使得mongos能够准确路由。在生产环境中通常会配置多个Config Server，防止数据丢失。</p>
-<p>③Shard（分片）</p>
-<p>分片是指将数据库拆分，将其分散到不同的机器存储的过程。分发到不同的机器，不需要强大功能的机器就能够存储更多的数据以及处理更大的负载。基本思想是将集合切成小块，将块分散到不同的片里，每个片只负责总数居的一部分，最后通过一个均衡器来对各个分片进行均衡。</p>
-<p>④replica set（副本集）</p>
-<p>shard的备份，防止shard挂掉之后数据丢失。</p>
+<h1 id="3-MongDB集群"><a href="#3-MongDB集群" class="headerlink" title="3.MongDB集群"></a>3.MongDB集群</h1><h2 id="3-1复制集"><a href="#3-1复制集" class="headerlink" title="3.1复制集"></a>3.1复制集</h2><p>一组Mongodb复制集，就是一组mongod进程，这些进程维护同一个数据集合。复制集提供了数据冗余和高等级的<br>可靠性，这是生产部署的基础。</p>
+<h3 id="3-1-1目的"><a href="#3-1-1目的" class="headerlink" title="3.1.1目的"></a>3.1.1目的</h3><p>保证数据在生产部署时的冗余和可靠性，通过在不同的机器上保存副本来保证数据的不会因为单点损坏而丢<br>失。能够随时应对数据丢失、机器损坏带来的风险。<br>还能提高读取能力，用户的读取服务器和写入服务器在不同的地方，而且，由不同的服务器为不同的用户提供<br>服务，提高整个系统的负载。</p>
+<h3 id="3-1-2机制"><a href="#3-1-2机制" class="headerlink" title="3.1.2机制"></a>3.1.2机制</h3><p>一组复制集就是一组mongod实例掌管同一个数据集，实例可以在不同的机器上面。实例中包含一个主导<br>（Primary），接受客户端所有的写入操作，其他都是副本实例（Secondary），从主服务器上获得数据并保持<br>同步。<br>主服务器很重要，包含了所有的改变操作（写）的日志。但是副本服务器集群包含有所有的主服务器数据，因<br>此当主服务器挂掉了，就会在副本服务器上重新选取一个成为主服务器。<br>每个复制集还有一个仲裁者（Arbiter），仲裁者不存储数据，只是负责通过心跳包来确认集群中集合的数量，<br>并在主服务器选举的时候作为仲裁决定结果。</p>
+<h3 id="3-1-3架构"><a href="#3-1-3架构" class="headerlink" title="3.1.3架构"></a>3.1.3架构</h3><p>基本的架构由3台服务器组成，一个三成员的复制集，由三个有数据，或者两个有数据，一个作为仲裁者。</p>
+<h4 id="3-1-3-1三个存储数据的复制集"><a href="#3-1-3-1三个存储数据的复制集" class="headerlink" title="3.1.3.1三个存储数据的复制集"></a>3.1.3.1三个存储数据的复制集</h4><p>一个主，两个从库组成，主库宕机时，这两个从库都可以被选为主库。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210517225513055.png" alt="image-20210517225513055" class="lazyload"></p>
+<p>当主库宕机后,两个从库都会进行竞选，其中一个变为主库，当原主库恢复后，作为从库加入当前的复制集群即可。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210517225525943.png" alt="image-20210517225525943" class="lazyload"></p>
+<h4 id="3-1-3-2存在arbiter节点的复制集"><a href="#3-1-3-2存在arbiter节点的复制集" class="headerlink" title="3.1.3.2存在arbiter节点的复制集"></a>3.1.3.2存在arbiter节点的复制集</h4><p>一个主库，一个从库，可以在选举中成为主库，一个arbiter节点，在选举中，只进行投票，不能成为主库。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210517225620246.png" alt="image-20210517225620246" class="lazyload"></p>
 <blockquote>
-<p>Mongo具有高可用的特性，而实现这一特性是Mongo的Replica Set(复制集)</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="replication.png" alt="MongoDB复制结构图" class="lazyload"></p>
-<p>MongoDB的复制至少需要两个节点，其中一个是主节点，负责客户端的请求，其余的都是从节点，负责复制主节点上的数据。</p>
-<p>主节点记录其上的所有操作oplog，从节点定期轮询主节点获取这些操作，然后对自己的数据副本执行。</p>
+<p>说明：由于arbiter节点没有复制数据，因此这个架构中仅提供一个完整的数据副本。arbiter节点只需要更少的<br>资源，代价是更有限的冗余和容错。</p>
 </blockquote>
+<p>当主库宕机时，将会选择从库成为主，主库修复后，将其加入到现有的复制集群中即可。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210517225709463.png" alt="image-20210517225709463" class="lazyload"></p>
+<h3 id="3-1-4Primary选举"><a href="#3-1-4Primary选举" class="headerlink" title="3.1.4Primary选举"></a>3.1.4Primary选举</h3><p>复制集通过replSetInitiate命令（或mongo shell的rs.initiate()）进行初始化，初始化后各个成员间开始发送心跳消<br>息，并发起Priamry选举操作，获得『大多数』成员投票支持的节点，会成为Primary，其余节点成为Secondary。</p>
 <blockquote>
-<p>文中内容来源：</p>
-<p>MongoDB中文网：<a target="_blank" rel="noopener" href="https://www.mongodb.org.cn/">https://www.mongodb.org.cn/</a></p>
-<p>CSDN博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ITgagaga/article/details/103458111">https://blog.csdn.net/ITgagaga/article/details/103458111</a></p>
+<p>大多数：假设复制集内投票成员数量为N，则大多数为 N/2 + 1，当复制集内存活成员数量不足大多数时，整个复制集将无法<br>选举出Primary，复制集将无法提供写服务，处于只读状态。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Primary</td>
+<td>Priamry的作用是接收用户的写入操作，将自己的数据同步给其他的Secondary。</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>正常情况下，复制集的Seconary会参与Primary选举（自身也可能会被选为Primary），并从Primary同步最新写入的数据，以保证与Primary存储相同的数据。Secondary可以提供读服务，增加Secondary节点可以提供复制集的读服务能力，同时提升复制集的可用性。另外，Mongodb支持对复制集的Secondary节点进行灵活的配置，以适应多种场景的需求</td>
+</tr>
+<tr>
+<td>Arbiter</td>
+<td>Arbiter节点只参与投票，不能被选为Primary，并且不从Primary同步数据。比如你部署了一个2个节点的复制集，1个Primary，1个Secondary，任一节点宕机，复制集将不能提供服务了（无法选出Primary），这时可以给复制集添加一个Arbiter节点，即使有节点宕机，仍能选出Primary。Arbiter本身不存储数据，是非常轻量级的服务，当复制集成员为偶数时，最好加入一个Arbiter节点，以提升复制集可用性。</td>
+</tr>
+<tr>
+<td>Priority0</td>
+<td>Priority0节点的选举优先级为0，不会被选举为Primary。比如你跨机房A、B部署了一个复制集，并且想指定Primary必须在A机房，这时可以将B机房的复制集成员Priority设置为0，这样Primary就一定会是A机房的成员。（注意：如果这样部署，最好将『大多数』节点部署在A机房，否则网络分区时可能无法选出Primary）</td>
+</tr>
+<tr>
+<td>Vote0</td>
+<td>Mongodb 3.0里，复制集成员最多50个，参与Primary选举投票的成员最多7个，其他成员（Vote0）的vote属性必须设置为0，即不参与投票。</td>
+</tr>
+<tr>
+<td>Hidden</td>
+<td>Hidden节点不能被选为主（Priority为0），并且对Driver不可见。因Hidden节点不会接受Driver的请求，可使用Hidden节点做一些数据备份、离线计算的任务，不会影响复制集的服务。</td>
+</tr>
+<tr>
+<td>Delayed</td>
+<td>Delayed节点必须是Hidden节点，并且其数据落后与Primary一段时间（可配置，比如1个小时）。因Delayed节点的数据比Primary落后一段时间，当错误或者无效的数据写入Primary时，可通过Delayed节点的数据来恢复到之前的时间点。</td>
+</tr>
+</tbody></table>
+<h2 id="3-2分片集群"><a href="#3-2分片集群" class="headerlink" title="3.2分片集群"></a>3.2分片集群</h2><p>分片（sharding）是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区，但MongoDB分片完全又是另一回事。</p>
+<p>和MySQL分区方案相比，MongoDB的最大区别在于它几乎能自动完成所有事情，只要告诉MongoDB要分配数据，它就能自动维护数据在不同服务器之间的均衡。</p>
+<h3 id="3-2-1简介"><a href="#3-2-1简介" class="headerlink" title="3.2.1简介"></a>3.2.1简介</h3><p>高数据量和吞吐量的数据库应用会对单机的性能造成较大压力,大的查询量会将单机的CPU耗尽,大的数据量对单机的存储压力较大,最终会耗尽系统的内存而将压力转移到磁盘IO上。为了解决这些问题,有两个基本的方法: 垂直扩展和水平扩展。</p>
+<blockquote>
+<p>垂直扩展：增加更多的CPU和存储资源来扩展容量。<br>水平扩展：将数据集分布在多个服务器上。水平扩展即分片。</p>
+</blockquote>
+<p>分片为应对高吞吐量与大数据量提供了方法。使用分片减少了每个分片需要处理的请求数，因此，通过水平扩展，集群可以提高自己的存储容量和吞吐量。举例来说，当插入一条数据时，应用只需要访问存储这条数据的分片.使用分片减少了每个分片存储的数据。例如，如果数据库1tb的数据集，并有4个分片，然后每个分片可能仅持有256GB的数据。如果有40个分片，那么每个切分可能只有25GB的数据。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210518002808613.png" alt="image-20210518002808613" class="lazyload"></p>
+<h3 id="3-2-2优势"><a href="#3-2-2优势" class="headerlink" title="3.2.2优势"></a>3.2.2优势</h3><ul>
+<li><p>对集群进行抽象，让集群“不可见”<br>MongoDB自带了一个叫做mongos的专有路由进程。mongos就是掌握统一路口的路由器，其会将客户端发来的请求准确无误的路由到集群中的一个或者一组服务器上，同时会把接收到的响应拼装起来发回到客户端。</p>
+</li>
+<li><p>保证集群总是可读写<br>MongoDB通过多种途径来确保集群的可用性和可靠性。将MongoDB的分片和复制功能结合使用，在确保数据分片到多台服务器的同时，也确保了每分数据都有相应的备份，这样就可以确保有服务器换掉时，其他的从库可以立即接替坏掉的部分继续工作。</p>
+</li>
+<li><p>使集群易于扩展</p>
+<p>当系统需要更多的空间和资源的时候，MongoDB使我们可以按需方便的扩充系统容量。</p>
+</li>
+</ul>
+<h3 id="3-2-3架构"><a href="#3-2-3架构" class="headerlink" title="3.2.3架构"></a>3.2.3架构</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Config Server</td>
+<td>存储集群所有节点、分片数据路由信息。默认需要配置3个Config Server节点。</td>
+</tr>
+<tr>
+<td>Mongos</td>
+<td>提供对外应用访问，所有操作均通过mongos执行。一般有多个mongos节点。数据迁移和数据自动平衡。</td>
+</tr>
+<tr>
+<td>Mongod</td>
+<td>存储应用数据记录。一般有多个Mongod节点，达到数据分片目的。</td>
+</tr>
+</tbody></table>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210518003112184.png" alt="image-20210518003112184" class="lazyload"></p>
+<p>Mongos本身并不持久化数据，Sharded cluster所有的元数据都会存储到Config Server，而用户的数据会分散存储到各个shard。Mongos启动后，会从配置服务器加载元数据，开始提供服务，将用户的请求正确路由到对应的分片。</p>
+<p>当数据写入时，MongoDB Cluster根据分片键设计写入数据。当外部语句发起数据查询时，MongoDB根据数据分布自动路由至指定节点返回数据。</p>
+<h3 id="3-2-4集群中数据分布"><a href="#3-2-4集群中数据分布" class="headerlink" title="3.2.4集群中数据分布"></a>3.2.4集群中数据分布</h3><p>在一个shard server内部，MongoDB会把数据分为chunks，每个chunk代表这个shard server内部一部分数据。<br>chunk的产生，会有以下两个用途：</p>
+<ul>
+<li>Splitting：当一个chunk的大小超过配置中的chunk size时，MongoDB的后台进程会把这个chunk切分成更小的chunk，从而避免chunk过大的情况</li>
+<li>Balancing：在MongoDB中，balancer是一个后台进程，负责chunk的迁移，从而均衡各个shard server的负载，系统初始1个chunk，chunk size默认值64M,生产库上选择适合业务的chunk size是最好的。mongoDB会自动拆分和迁移chunks。</li>
+</ul>
+<h3 id="3-2-5chunk分裂及迁移"><a href="#3-2-5chunk分裂及迁移" class="headerlink" title="3.2.5chunk分裂及迁移"></a>3.2.5chunk分裂及迁移</h3><p>随着数据的增长，其中的数据大小超过了配置的chunk size，默认是64M，则这个chunk就会分裂成两个。数据的增长会让chunk分裂得越来越多。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210518003307708.png" alt="image-20210518003307708" class="lazyload"></p>
+<p>这时候，各个shard 上的chunk数量就会不平衡。mongos中的一个组件balancer 就会执行自动平衡。把chunk从<br>chunk数量最多的shard节点挪动到数量最少的节点。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="image-20210518003320470.png" alt="image-20210518003320470" class="lazyload"></p>
+<h3 id="3-2-6chunksize"><a href="#3-2-6chunksize" class="headerlink" title="3.2.6chunksize"></a>3.2.6chunksize</h3><p>chunk的分裂和迁移非常消耗IO资源；chunk分裂的时机：在插入和更新，读数据不会分裂。</p>
+<ul>
+<li>小的chunksize：数据均衡是迁移速度快，数据分布更均匀。数据分裂频繁，路由节点消耗更多资源。</li>
+<li>大的chunksize：数据分裂少。数据块移动集中消耗IO资源。</li>
+</ul>
+<p>适合业务的chunksize是最好的。</p>
+<blockquote>
+<p>chunkSize 对分裂及迁移的影响</p>
+<ul>
+<li>MongoDB 默认的 chunkSize 为64MB，如无特殊需求，建议保持默认值；chunkSize 会直接影响到 chunk 分裂、迁移的行为。</li>
+<li>chunkSize 越小，chunk 分裂及迁移越多，数据分布越均衡；反之，chunkSize 越大，chunk 分裂及迁移会更少，但可能导致数据分布不均。</li>
+<li>chunk 自动分裂只会在数据写入时触发，所以如果将 chunkSize 改小，系统需要一定的时间来将 chunk 分裂到指定的大小。</li>
+<li>chunk 只会分裂，不会合并，所以即使将 chunkSize 改大，现有的 chunk 数量不会减少，但 chunk 大小会随着写入不断增长，直到达到目标大小。</li>
+</ul>
 </blockquote>
 
   </article>
@@ -427,6 +530,10 @@
   
   <div class="nexmoe-post-meta nexmoe-rainbow">
     
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/MongoDB/">MongoDB</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/MongoDB/" rel="tag">MongoDB</a>
     
 </div>
 
@@ -459,7 +566,7 @@
                   <div class="nexmoe-toc">
                       
                       
-                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFMongoDB"><span class="toc-number">1.</span> <span class="toc-text">1.什么是MongoDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-MongoDB%E7%9A%84%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">2.MongoDB的概念解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">2.1数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">2.2文档结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E9%9B%86%E5%90%88"><span class="toc-number">2.3.</span> <span class="toc-text">2.3集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E6%B3%95%E7%9A%84%E9%9B%86%E5%90%88%E5%90%8D"><span class="toc-number">2.3.1.</span> <span class="toc-text">合法的集合名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.4.</span> <span class="toc-text">2.4MongoDB的数据类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-MongoDB%E5%88%86%E7%89%87"><span class="toc-number">3.</span> <span class="toc-text">3.MongoDB分片</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E4%BD%BF%E7%94%A8%E5%88%86%E7%89%87%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.1.</span> <span class="toc-text">3.1使用分片的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2%E5%88%86%E7%89%87%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">3.2分片的结构</span></a></li></ol></li></ol>
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFMongoDB"><span class="toc-number">1.</span> <span class="toc-text">1.什么是MongoDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-MongoDB%E7%9A%84%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">2.MongoDB的概念解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">2.1数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">2.2文档结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E9%9B%86%E5%90%88"><span class="toc-number">2.3.</span> <span class="toc-text">2.3集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E6%B3%95%E7%9A%84%E9%9B%86%E5%90%88%E5%90%8D"><span class="toc-number">2.3.1.</span> <span class="toc-text">合法的集合名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.4.</span> <span class="toc-text">2.4MongoDB的数据类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-MongDB%E9%9B%86%E7%BE%A4"><span class="toc-number">3.</span> <span class="toc-text">3.MongDB集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E5%A4%8D%E5%88%B6%E9%9B%86"><span class="toc-number">3.1.</span> <span class="toc-text">3.1复制集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1%E7%9B%AE%E7%9A%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2%E6%9C%BA%E5%88%B6"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-1%E4%B8%89%E4%B8%AA%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%8D%E5%88%B6%E9%9B%86"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">3.1.3.1三个存储数据的复制集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-2%E5%AD%98%E5%9C%A8arbiter%E8%8A%82%E7%82%B9%E7%9A%84%E5%A4%8D%E5%88%B6%E9%9B%86"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">3.1.3.2存在arbiter节点的复制集</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-4Primary%E9%80%89%E4%B8%BE"><span class="toc-number">3.1.4.</span> <span class="toc-text">3.1.4Primary选举</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4"><span class="toc-number">3.2.</span> <span class="toc-text">3.2分片集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1%E7%AE%80%E4%BB%8B"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2%E4%BC%98%E5%8A%BF"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.3.</span> <span class="toc-text">3.2.3架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4%E9%9B%86%E7%BE%A4%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83"><span class="toc-number">3.2.4.</span> <span class="toc-text">3.2.4集群中数据分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-5chunk%E5%88%86%E8%A3%82%E5%8F%8A%E8%BF%81%E7%A7%BB"><span class="toc-number">3.2.5.</span> <span class="toc-text">3.2.5chunk分裂及迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-6chunksize"><span class="toc-number">3.2.6.</span> <span class="toc-text">3.2.6chunksize</span></a></li></ol></li></ol></li></ol>
                       
                   </div>
             
@@ -483,7 +590,7 @@
 <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
  
 
-<script src="/js/app.js?v=1620658851882"></script>
+<script src="/js/app.js?v=1621269737997"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 <script>
