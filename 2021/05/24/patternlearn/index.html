@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>设计模式七大原则以及工厂模式 - 小楼叙谈</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
+  <meta name="description" content="设计模式七大原则以及工厂模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式七大原则以及工厂模式">
+<meta property="og:url" content="http://czj2369.github.io/2021/05/24/patternlearn/index.html">
+<meta property="og:site_name" content="小楼叙谈">
+<meta property="og:description" content="设计模式七大原则以及工厂模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-24T15:35:47.000Z">
+<meta property="article:modified_time" content="2021-05-24T15:39:33.108Z">
+<meta property="article:author" content="czj">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="工厂模式">
+<meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+  <link rel="stylesheet" href="/css/style.css?v=1621870782595">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1621870782595">
+  <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1621870782595">
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="czj" class="mdui-btn mdui-btn-icon"><img src="https://avatars.githubusercontent.com/u/31198074?s=400&amp;u=50e804a07014c2f78db9e9cadec51d5608cc6527&amp;v=4" alt="czj"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="czj">
+            <img src="https://avatars.githubusercontent.com/u/31198074?s=400&amp;u=50e804a07014c2f78db9e9cadec51d5608cc6527&amp;v=4" alt="czj" alt="czj">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>6</div>
+        <div><span>标签</span>8</div>
+        <div><span>分类</span>5</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:czj2369.github.io" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="/null" target="_blank" mdui-tooltip="{content: 'QQ群'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://www.bilibili.com/" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/czj2369/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/MongoDB/">MongoDB</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/docker/">docker</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/docker/redis/">redis</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/xshell/">xshell</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/设计模式/">设计模式</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/xshell/" style="font-size: 10px;">xshell</a> <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">工厂模式</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/" style="font-size: 10px;">访问速度</a>
+    </div>
+    
+  </div>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 czj
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+
+  <article>
+    
+        <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+            <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="设计模式七大原则以及工厂模式" class="lazyload">
+            <h1>设计模式七大原则以及工厂模式</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta nexmoe-rainbow-fill" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年05月24日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.3k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 10 分钟</a>
+</div>
+
+    
+
+    <p>设计模式七大原则以及工厂模式</p>
+<span id="more"></span>
+<h1 id="1-设计的七大原则"><a href="#1-设计的七大原则" class="headerlink" title="1.设计的七大原则"></a>1.设计的七大原则</h1><p>1.1开闭原则Open-Closed Principle, OCP</p>
+<p>​    对扩展开放，对修改关闭。</p>
+<p>1.2依赖倒置原则Dependence Inversion Principle,DIP</p>
+<p>​    高层模块不依赖于底层模块，二者都应该依赖其抽象。抽象不依赖于细节，细节依赖于抽象。</p>
+<p>1.3单一职责原则Simple Responsibility Principle，SRP</p>
+<p>​    不要存在多于一个导致类变更的原因。</p>
+<p>1.4接口隔离原则Interface Segregation Principle, ISP</p>
+<p>​    是指用多个专门的接口，而不是单一的接口，客户端不需要依赖它不需要的接口。</p>
+<p>1.5迪米特法则Law of Demeter LoD</p>
+<p>​    一个对象应该对其他对象保持最少的了解，又叫最少知道原则（Least Knowledge Principle,LKP），尽量减少类与类之间的耦合。</p>
+<p>1.6里氏替换原则Liskov Substitution Principle,LSP</p>
+<p>​    是指如果对每一个类型为 T1 的对象 o1,都有类型为 T2 的对象 o2,使得以 T1 定义的所有程序 P 在所有的对象 o1 都替换成o2 时，程序 P 的行为没有发生变化，那么类型 T2 是类型 T1 的子类型。</p>
+<p>1.7合成复用原则Composite/Aggregate Reuse Principle,CARP</p>
+<p>指尽量使用对象组合(has-a)/聚合(contanis-a)，而不是继承关系达到软件复用的目的。</p>
+<h1 id="2-工厂模式"><a href="#2-工厂模式" class="headerlink" title="2.工厂模式"></a>2.工厂模式</h1><p>工厂模式是一个创建型模式。</p>
+<h2 id="2-1简单工厂模式"><a href="#2-1简单工厂模式" class="headerlink" title="2.1简单工厂模式"></a>2.1简单工厂模式</h2><p>简单工厂模式（Simple Factory Pattern）是指由一个工厂对象决定创建出哪一种产品类的实例，但它不属于 GOF，23 种设计模式。</p>
+<p>适用于工厂类负责创建的对象较少的情景。</p>
+<p>示例：</p>
+<p>首先建立一个电器类</p>
+<pre><code class="java">/**
+ * 电器类
+ */
+public interface Electrical &#123;
+    // 生产电器
+    void produce();
+&#125;
+</code></pre>
+<p>然后有一个电视机工厂类，继承了电器类</p>
+<pre><code class="java">/**
+ * 电视机类
+ */
+public class Television implements Electrical &#123;
+    @Override
+    public void produce() &#123;
+        System.out.println(&quot;生产电视&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>接着我们有一个冰箱类，也继承了电器类</p>
+<pre><code class="java">/**
+ * 冰箱类
+ */
+public class Refrigerator implements Electrical &#123;
+    @Override
+    public void produce() &#123;
+        System.out.println(&quot;生产冰箱&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>客户端代码可以这边调用</p>
+<pre><code class="java">/**
+ * 客户端调用
+ */
+public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        Electrical televisionFactory = new Television();
+        televisionFactory.produce();
+        Electrical refrigerator = new Refrigerator();
+        refrigerator.produce();
+    &#125;
+&#125;
+</code></pre>
+<p>如果我们还有很多其它不同的电器的话，那没增加一个新的电器，就需要新增一个new去实例对象并且调用方法，那么我们客户端的依赖就会越来越臃肿，因此我们需要想个办法让这种依赖减少，把创建的细节隐藏起来。我们使用简单工厂去进行修改。</p>
+<p>创建一个电器工厂类</p>
+<pre><code class="java">/**
+ * 电器工厂类
+ */
+public class ElectricalFactory &#123;
+    public Electrical create(String productName) &#123;
+        if (&quot;television&quot;.equals(productName)) &#123;
+            return new Television();
+        &#125;else if (&quot;refrigerator&quot;.equals(productName)) &#123;
+            return new Refrigerator();
+        &#125;else &#123;
+            return null;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>那么客户端调用就变为</p>
+<pre><code class="java">/**
+ * 客户端调用
+ */
+public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        // ------------工厂方法调用-----------------
+        ElectricalFactory electricalFactory = new ElectricalFactory();
+        Electrical television = electricalFactory.create(&quot;television&quot;);
+        television.produce();
+        Electrical refrigerator = electricalFactory.create(&quot;refrigerator&quot;);
+        refrigerator.produce();
+    &#125;
+&#125;
+</code></pre>
+<p>我们可以将工厂中的create()方法设置为静态方法，那么调用就更简单了，不需要去new出工厂类，而是直接类去调用方法。</p>
+<p>但这样还是存在一个问题，那就是不符合开闭原则，当新增一个新的电器时，我们需要去工厂类新增一个else if分支，我们使用反射的方法继续优化。</p>
+<pre><code class="java">/**
+ * 电器工厂类
+ */
+public class ElectricalFactory &#123;
+    //--------反射方法-------------
+    public static Electrical create(String className) &#123;
+        if (!(null == className || &quot;&quot;.equals(className))) &#123;
+            try &#123;
+                return (Electrical) Class.forName(className).newInstance();
+            &#125; catch (Exception e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        return null;
+    &#125;
+&#125;
+</code></pre>
+<p>客户端调用</p>
+<pre><code class="java">/**
+ * 客户端调用
+ */
+public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        Electrical electrical = ElectricalFactory.create(&quot;com.anjian.patter.factorypattern.impl.Television&quot;);
+        electrical.produce();
+    &#125;
+&#125;
+</code></pre>
+<p>这段代码还可以继续优化，因为传入的是字符串，可控性有待提升，而且反射之后还需要强制转型，可以直接传入class对象，然后进行反射生成对象。</p>
+<pre><code class="java">/**
+ * 电器工厂类
+ */
+public class ElectricalFactory &#123;
+    //--------反射方法-----------
+    public static Electrical create(Class&lt;? extends Electrical&gt; clazz) &#123;
+        if (null != clazz) &#123;
+            try &#123;
+                return clazz.newInstance();
+            &#125; catch (Exception e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        return null;
+    &#125;
+&#125;
+</code></pre>
+<p>客户端调用</p>
+<pre><code class="java">/**
+ * 客户端调用
+ */
+public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        Electrical electrical = ElectricalFactory.create(Television.class);
+        electrical.produce();
+    &#125;
+&#125;
+</code></pre>
+<p>简单工厂模式在JDK中是很常见的，比如Calendar类，其中Calendar.getInstance()方法就使用了简单工厂模式，以及经常使用的logback，LoggerFactory中有多个重载的getLogger()方法。</p>
+<p>缺点：职责过重，不易于扩展过于复杂的产品结构。</p>
+<h2 id="2-2工厂模式"><a href="#2-2工厂模式" class="headerlink" title="2.2工厂模式"></a>2.2工厂模式</h2><p>工厂方法模式（Fatory Method Pattern）是指定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。</p>
+<p>在工厂方法模式中用户只需要关心所需产品对应的工厂，无须关心创建细节，而且加入新的产品符合开闭原则。</p>
+<p>改造简单工厂方法的工厂类，使之成为一个接口</p>
+<pre><code class="java">/**
+ * 工厂接口类
+ */
+public interface ElectricalFactory &#123;
+    Electrical create();
+&#125;
+</code></pre>
+<p>再分别创建两个子工厂，电视工厂和冰箱工厂</p>
+<pre><code class="java">/**
+ * 电视工厂
+ */
+public class TelevisionFactory implements ElectricalFactory &#123;
+    @Override
+    public Electrical create() &#123;
+        return new Television();
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">/**
+ * 冰箱工厂
+ */
+public class RefrigeratorFactory implements ElectricalFactory &#123;
+    @Override
+    public Electrical create() &#123;
+        return new Refrigerator();
+    &#125;
+&#125;
+</code></pre>
+<p>客户端调用</p>
+<pre><code class="java">public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        ElectricalFactory televisionFactory = new TelevisionFactory();
+        Electrical tv = televisionFactory.create();
+        tv.produce();
+
+        RefrigeratorFactory refrigeratorFactory = new RefrigeratorFactory();
+        Electrical rg = refrigeratorFactory.create();
+        rg.produce();
+
+    &#125;
+&#125;
+</code></pre>
+<p>将生成对象交于工厂的子工厂，便于维护，不同的类负责一件事，尽量做到单一职责原则。</p>
+<blockquote>
+<p>工厂模式适用场景：</p>
+<p>1、创建对象需要大量重复的代码。<br>2、客户端（应用层）不依赖于产品类实例如何被创建、实现等细节。<br>3、一个类通过其子类来指定创建哪个对象。</p>
+<p>工厂方法也有缺点：<br>1、类的个数容易过多，增加复杂度。<br>2、增加了系统的抽象性和理解难度。</p>
+</blockquote>
+<h2 id="2-3抽象工厂模式"><a href="#2-3抽象工厂模式" class="headerlink" title="2.3抽象工厂模式"></a>2.3抽象工厂模式</h2><p>抽象工厂模式（Abastract Factory Pattern）是指提供一个创建一系列相关或相互依赖对象的接口，无须指定他们具体的类。客户端（应用层）不依赖于产品类实例如何被创建、实现等细节，强调的是一系列相关的产品对象（属于同一产品族）一起使用创建对象需要大量重复的代码。需要提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于具体实现。</p>
+<p>首先我们创建一个产品族接口，电视产品和冰箱产品</p>
+<pre><code class="java">/**
+ * 电视产品
+ */
+public interface ITelevision &#123;
+    void create();
+&#125;
+</code></pre>
+<pre><code class="java">/**
+ * 冰箱产品
+ */
+public interface IRefrigerator &#123;
+    void create();
+&#125;
+</code></pre>
+<p>接着创建一个生产该产品族的工厂</p>
+<pre><code class="java">/**
+ * 生产工厂
+ */
+public interface IElectricalFactory &#123;
+    ITelevision createTelevision();
+    IRefrigerator createRefrigerator();
+&#125;
+</code></pre>
+<p>三个都是接口类，不依赖其中的细节，细节由其子类去实现。</p>
+<p>假如现在美的要去生产电视和冰箱，那么需要先实现电视和冰箱的细节，那么就继承电视产品和冰箱产品，然后自己去实现细节。</p>
+<pre><code class="java">/**
+ * 美的电视
+ */
+public class MeidiTelevision implements ITelevision &#123;
+    @Override
+    public void create() &#123;
+        System.out.println(&quot;生产美的电视&quot;);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">/**
+ * 美的冰箱
+ */
+public class MeidiRefrigerator implements IRefrigerator &#123;
+    @Override
+    public void create() &#123;
+        System.out.println(&quot;生产美的冰箱&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>而生产这两种产品又交给美的的工厂去实现</p>
+<pre><code class="java">/**
+ * 美的工厂
+ */
+public class MeiDiElectricalFactory implements IElectricalFactory &#123;
+    @Override
+    public ITelevision createTelevision() &#123;
+        return new MeidiTelevision();
+    &#125;
+
+    @Override
+    public IRefrigerator createRefrigerator() &#123;
+        return new MeidiRefrigerator();
+    &#125;
+&#125;
+</code></pre>
+<p>客户端调用</p>
+<pre><code class="java">public class FactoryPatternTest &#123;
+    public static void main(String[] args) &#123;
+        MeiDiElectricalFactory meiDiElectricalFactory = new MeiDiElectricalFactory();
+        IRefrigerator refrigerator = meiDiElectricalFactory.createRefrigerator();
+        ITelevision television = meiDiElectricalFactory.createTelevision();
+        refrigerator.create();
+        television.create();
+    &#125;
+&#125;
+</code></pre>
+<p>如果有其它的厂商需要生产这两种产品的话，也都各自实现产品接口以及工厂接口即可，比如小米电视和小米冰箱，以及小米电器工厂，这里就不列举出代码。</p>
+<p>但是抽象工厂存在缺点，比如如果要新增一个产品，比如是洗衣机，那么就需要修改工厂接口类，加入一个createWashingMachine()方法，这样就导致之前写的工厂都需要去实现这个方法，很明显不符合开闭原则。</p>
+<blockquote>
+<p>1、规定了所有可能被创建的产品集合，产品族中扩展新的产品困难，需要修改抽象工厂的接口。<br>2、增加了系统的抽象性和理解难度。</p>
+</blockquote>
+<p>但不符合开闭原则不代表我们不能使用，这需要根据实际情况来判断，再实际需求中，更新我们的产品等级结构是非常正常的一件事，只要不是频繁的更新，是可以不遵循开闭原则的，一切按实际情况来。</p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>czj<br>
+    <strong>本文链接：</strong><a href="http://czj2369.github.io/2021/05/24/patternlearn/" title="http:&#x2F;&#x2F;czj2369.github.io&#x2F;2021&#x2F;05&#x2F;24&#x2F;patternlearn&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;czj2369.github.io&#x2F;2021&#x2F;05&#x2F;24&#x2F;patternlearn&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">工厂模式</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '6ae9a61017d0fa708309',
+        clientSecret: '0bf1d3f0275d2935eb6ac74552af6086536b20e8',
+        id: window.location.pathname,
+        repo: 'czj2369.github.io',
+        owner: 'czj2369',
+        admin: 'czj2369'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+  </div>
+</div>
+        <div class="nexmoe-post-right">
+          <div class="nexmoe-fixed">
+            <div class="nexmoe-tool"> 
+              <button class="mdui-fab catalog mdui-ripple" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                
+      
+                  <div class="nexmoe-toc">
+                      
+                      
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="toc-number">1.</span> <span class="toc-text">1.设计的七大原则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1简单工厂模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">2.2工厂模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">2.3抽象工厂模式</span></a></li></ol></li></ol>
+                      
+                  </div>
+            
+                
+              </button>
+              <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+ 
+
+<script src="/js/app.js?v=1621870782597"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>
